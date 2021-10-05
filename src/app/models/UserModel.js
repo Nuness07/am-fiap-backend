@@ -7,77 +7,10 @@ class UserModel {
     return rows;
   }
 
-  // async findById(id) {
-  //   let row = {}
-  //   await connection('usuarios').select(['usuarios.*', 'projetos.* as projetos', 'roteiros.* as roteiros']).where('id_usuario', id).leftJoin('projetos', 'projetos.id_prestador', 'usuarios.id_usuario').leftJoin('roteiros', 'roteiros.id_usuario_relation', 'usuarios.id_usuario').then((data) => {
-  //     console.log(data);
-  //     const usuario = {
-  //       id_usuario: data[0].id_usuario,
-  //       email: data[0].email,
-  //       senha: data[0].senha,
-  //       nome: data[0].nome,
-  //       sobrenome: data[0].sobrenome,
-  //       cpf: data[0].cpf,
-  //       cep: data[0].cep,
-  //       uf: data[0].uf,
-  //       city: data[0].city,
-  //       street: data[0].street,
-  //       number: data[0].number,
-  //       complement: data[0].complement,
-  //       foto: data[0].foto,
-  //       descricao: data[0].descricao,
-  //       link_deezer: data[0].link_deezer,
-  //       link_facebook: data[0].link_facebook,
-  //       link_instagram: data[0].link_instagram,
-  //       link_spotify: data[0].link_spotify,
-  //       link_youtube: data[0].link_youtube,
-  //       link_twitch: data[0].link_twitch,
-  //       is_professor: data[0].is_professor,
-  //       is_freelancer: data[0].is_freelancer,
-  //       titulo_profissional: data[0].titulo_profissional,
-  //       descricao_freelancer: data[0].descricao_freelancer,
-  //       experiencia_profissional: data[0].experiencia_profissional,
-  //       principais_habilidades: data[0].principais_habilidades,
-  //       is_professor_aprovado: data[0].is_professor_aprovado,
-  //       is_freelancer_aprovado: data[0].is_freelancer_aprovado,
-  //       pergunta_professor_1: data[0].pergunta_professor_1,
-  //       pergunta_professor_2: data[0].pergunta_professor_2,
-  //       pergunta_professor_3: data[0].pergunta_professor_3,
-  //       freelancer_verificado: data[0].freelancer_verificado,
-  //       projetos: [],
-  //       roteiros: []
-  //     }
-
-  //     if(data[0].id_projeto){
-  //       data.forEach(((projeto) => {
-  //         const project = {
-  //           id_projeto: projeto.id_projeto,
-  //           nome: projeto.nome_projeto,
-  //           habilidades_desejadas: projeto.habilidades_desejadas,
-  //           arquivos: projeto.arquivos,
-  //           preco: projeto.preco,
-  //           aprovado: projeto.aprovado,
-  //           impulso: projeto.impulso,
-  //           id_prestador: projeto.id_prestador,
-  //           id_categoria_projeto: projeto.id_categoria_projeto
-  //         };
-  //         usuario.projetos.push(project)
-  //       }));
-  //     }
-  //     if(data[0].id_roteiro){
-  //       data.forEach(((roteiro) => {
-  //         const roadMap = {
-  //           id_roteiro: roteiro.id_roteiro,
-  //           nome: roteiro.nome_roteiro,
-  //           texto: roteiro.texto,
-  //         };
-  //         usuario.roteiros.push(roadMap)
-  //       }));
-  //     }
-  //     row = usuario;
-  //   });
-  //   return row;
-  // }
+  async findById(id) {
+    const [row] = await connection('usuarios').where('id_usuario', id);
+    return row;
+  }
 
   async findByEmail(email) {
     const [row] = await connection('usuarios').where('email', email);

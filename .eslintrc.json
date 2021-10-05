@@ -9,5 +9,9 @@
         "ecmaVersion": 12
     },
     "rules": {
+      "class-methods-use-this": "off",
+      "eqeqeq": "off",
+      "camelcase": "off",
+      "prefer-arrow-callback": "off",
     }
 }
