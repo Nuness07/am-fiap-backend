@@ -6,7 +6,13 @@ exports.up = function (knex) {
     table.string('feedback', 2000).notNullable();
 
     table
-    .uuid('id_usuario_relation')
+    .uuid('id_usuario_enviou')
+    .references('id_usuario')
+    .inTable('usuarios')
+    .notNullable();
+
+    table
+    .uuid('id_usuario_recebeu')
     .references('id_usuario')
     .inTable('usuarios')
     .notNullable();
