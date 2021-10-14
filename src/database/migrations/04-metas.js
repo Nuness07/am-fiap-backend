@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('metas', (table) => {
-    table.uuid('id_meta').primary();
+    table.increments('id_usuario').primary();
     table.string('nome', 80).notNullable();
     table.string('descricao', 500).notNullable();
     table.string('data_inicio', 50).notNullable();
