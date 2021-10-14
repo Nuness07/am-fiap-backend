@@ -12,6 +12,7 @@ exports.up = function (knex) {
     table.string('salario_atual', 45);
     table.string('salario_anterior', 45);
     table.boolean('is_gerente');
+    table.boolean('feedback_semanal');
     table.string('localidade_filial', 50);
   });
 };

@@ -8,7 +8,41 @@ class UserModel {
   }
 
   async findById(id) {
-    const [row] = await connection('usuarios').where('id_usuario', id);
+    let row = {}
+    await connection('usuarios').select(['usuarios.*', 'feedbacks.* as feedbacks']).where('id_usuario', id).leftJoin('feedbacks', 'feedbacks.id_usuario_recebeu', 'usuarios.id_usuario').then((data) => {
+      console.log(data);
+      const usuario = {
+        id_usuario: data[0].id_usuario,
+        email: data[0].email,
+        senha: data[0].senha,
+        nome: data[0].nome,
+        sobrenome: data[0].sobrenome,
+        cpf: data[0].cpf,
+        foto: data[0].foto,
+        cargo: data[0].cargo,
+        data_admissao: data[0].data_admissao,
+        salario_atual: data[0].salario_atual,
+        salario_anterior: data[0].salario_anterior,
+        is_gerente: data[0].is_gerente,
+        feedback_semanal: data[0].feedback_semanal,
+        localidade_filial: data[0].localidade_filial,
+        feedbacks: [],
+      }
+
+      if(data[0].id_feedback){
+        data.forEach(((feedback) => {
+          const feedbackObject = {
+            id_feedback: feedback.id_feedback,
+            nivel_feedback: feedback.nivel_feedback,
+            assunto: feedback.assunto,
+            feedback: feedback.feedback,
+            id_usuario_enviou: feedback.id_usuario_enviou,
+          };
+          usuario.feedbacks.push(feedbackObject)
+        }));
+      }
+      row = usuario;
+    });
     return row;
   }
 
